@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <MinVerDefaultPreReleaseIdentifiers>preview</MinVerDefaultPreReleaseIdentifiers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MinVer" Version="6.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Nuke.Common" Version="9.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Nuke.Common" />
+    <Using Include="Nuke.Common.IO" />
+    <Using Include="Nuke.Common.Tooling" />
+    <Using Include="Nuke.Common.Tools.Coverlet" />
+    <Using Include="Nuke.Common.Tools.DotNet" />
+    <Using Include="Nuke.Common.Tools.DotNet.DotNetTasks" Static="True" />
+    <Using Include="Nuke.Common.Tools.MinVer" />
+    <Using Include="Nuke.Common.Tools.ReportGenerator" />
+    <Using Include="Nuke.Common.Tools.ReportGenerator.ReportGeneratorTasks" Static="True" />
+    <Using Include="Nuke.Common.ProjectModel" />
+    <Using Include="Serilog" />
+    <Using Include="System.Diagnostics" />
+  </ItemGroup>
+</Project>
