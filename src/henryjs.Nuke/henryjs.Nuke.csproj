@@ -29,4 +29,10 @@
     <Using Include="Serilog" />
     <Using Include="System.Diagnostics" />
   </ItemGroup>
+
+  
+  <ItemGroup>
+    <PackageDownload Include="vpk" Version="[0.0.1053]" />
+  </ItemGroup>
+
 </Project>

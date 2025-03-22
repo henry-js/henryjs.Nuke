@@ -1,4 +1,9 @@
 {
   "$schema": "build.schema.json",
-  "Solution": "henryjs.Nuke.sln"
+  "Solution": "henryjs.Nuke.sln",
+  "Target": [
+    "AssetRelease"
+  ],
+  "Configuration": "Release",
+  "ProjectName": "henryjs.Nuke"
 }

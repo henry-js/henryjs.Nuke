@@ -7,7 +7,7 @@ public interface IAssetRelease : IHasAssetReleaser, IHasAssetRelease, IPublish
         .DependsOn(Publish)
         .Executes(() =>
         {
-            AssetReleaser.ReleaseAssets(MainProject.GetInformationalVersion(), PublishDirectory, ReleaseDirectory);
+            AssetReleaser.ReleaseAssets(MainProject, PublishDirectory, ReleaseDirectory, Solution.Name);
         });
 }
 
@@ -19,8 +19,8 @@ public class VelopackAssetReleaser : IAssetReleaser
         Vpk = Velopack;
     }
 
-    public void ReleaseAssets(string version, string publishDirectory, string releaseDirectory)
+    public void ReleaseAssets(Project project, AbsolutePath publishDirectory, AbsolutePath releaseDirectory, string appName)
     {
-        var x = Vpk.Invoke($"pack --packId tasktitan --packVersion {version} --packDir {publishDirectory} --mainExe task.exe --packTitle tasktitan --outputDir {releaseDirectory} --shortcuts None");
+        var x = Vpk.Invoke($"pack --packId tasktitan --packVersion {project.GetPublishedVersion(publishDirectory)} --packDir {publishDirectory} --mainExe {project.Name}.exe --packTitle {appName} --outputDir {releaseDirectory} --shortcuts None");
     }
 }

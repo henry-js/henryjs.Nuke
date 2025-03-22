@@ -14,7 +14,7 @@ public interface IHasMainProject : IHasSolution
     string ProjectName => TryGetValue(() => ProjectName);
 
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
-    Configuration? Configuration => TryGetValue(() => Configuration) ?? (IsLocalBuild ? Configuration.Debug : Configuration.Release);
+    Configuration Configuration => TryGetValue(() => Configuration) ?? (IsLocalBuild ? Configuration.Debug : Configuration.Release);
 
     [Parameter("Runtimes you want to compile & test against - Default is '<empty>'")]
     string[] Runtimes => TryGetValue(() => Runtimes) ?? [""];

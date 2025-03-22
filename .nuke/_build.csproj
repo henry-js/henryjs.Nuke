@@ -15,4 +15,8 @@
     <ProjectReference Include="..\src\henryjs.Nuke\henryjs.Nuke.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageDownload Include="vpk" Version="[0.0.1053]" />
+  </ItemGroup>
+
 </Project>
