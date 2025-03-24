@@ -5,6 +5,7 @@ namespace henryjs.Nuke.Components;
 public interface ITest : ICompile, IHasTest
 {
     Target Test => _ => _
+        .DependsOn(Compile)
         .TriggeredBy(Compile)
         .Executes(() =>
         {
