@@ -2,8 +2,9 @@
   "$schema": "build.schema.json",
   "Solution": "henryjs.Nuke.sln",
   "Target": [
-    "AssetRelease"
+    "Pack"
   ],
   "Configuration": "Release",
-  "ProjectName": "henryjs.Nuke"
+  "ProjectName": "henryjs.Nuke",
+  "NuGetApiKey": "v1:noAfuJQqA8AMnC8yRF7SHSsei8+3Koc7N+jTrBJhXBLaPn7MI2qEdfA/DOPCS6bH"
 }

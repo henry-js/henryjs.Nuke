@@ -4,15 +4,14 @@ namespace henryjs.Nuke.Components;
 
 public interface ITest : ICompile, IHasTest
 {
-    public Func<DotNetTestSettings, DotNetTestSettings> CustomDotNetTestSettings => null;
     Target Test => _ => _
         .TriggeredBy(Compile)
         .Executes(() =>
         {
-            ExecuteTests(TestProjects, CustomDotNetTestSettings);
+            ExecuteTests(TestProjects);
         });
 
-    public new void ExecuteTests(IEnumerable<Project> testProjects, Func<DotNetTestSettings, DotNetTestSettings> customDotNetTestSettings = null)
+    public new void ExecuteTests(IEnumerable<Project> testProjects, Func<DotNetTestSettings, DotNetTestSettings>? customDotNetTestSettings = null)
     {
         var testCombinations =
         from project in testProjects
@@ -31,7 +30,7 @@ public interface ITest : ICompile, IHasTest
 
 public interface IHasTest
 {
-    public void ExecuteTests(IEnumerable<Project> testProjects, Func<DotNetTestSettings, DotNetTestSettings> customDotNetTestSettings = null)
+    public void ExecuteTests(IEnumerable<Project> testProjects, Func<DotNetTestSettings, DotNetTestSettings>? customDotNetTestSettings = null)
     {
         foreach (var project in testProjects)
         {

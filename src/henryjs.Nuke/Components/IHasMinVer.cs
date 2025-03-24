@@ -6,5 +6,5 @@ public interface IHasMinVer : IHasMainProject
 {
     [MinVer]
     MinVer MinVer => TryGetValue(() => MinVer);
-    Func<MinVerSettings, MinVerSettings> CustomMinVerSettings => null;
+    Func<MinVerSettings, MinVerSettings>? CustomMinVerSettings => null;
 }

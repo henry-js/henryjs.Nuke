@@ -2,7 +2,7 @@ using henryjs.Nuke.Components;
 using Nuke.Common;
 using Nuke.Common.Tooling;
 
-public class Build : NukeBuild, IClean, ICompile, ITest, IPublish, IAssetRelease, IHasMainProject
+public class Build : NukeBuild, IClean, ICompile, ITest, IPack, INugetPush, IHasMainProject
 {
     [NuGetPackage(
     packageId: "vpk",
@@ -12,6 +12,5 @@ public class Build : NukeBuild, IClean, ICompile, ITest, IPublish, IAssetRelease
     readonly Tool Vpk;
     public static int Main() => Execute<Build>(x => (x as ICompile).Compile);
 
-    IAssetReleaser IHasAssetReleaser.AssetReleaser => new VelopackAssetReleaser(Vpk);
     string IHasMainProject.ProjectName => "henryjs.Nuke";
 }

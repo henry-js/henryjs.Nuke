@@ -12,22 +12,20 @@ public class NuGetVersionInfo
     /// <summary>
     /// ProductName
     /// </summary>
-    public string ProductName { get; private set; }
+    public string? ProductName { get; private set; }
     /// <summary>
     /// ProductVersion
     /// </summary>
-    public string ProductVersion { get; private set; }
+    public string? ProductVersion { get; private set; }
 
     /// <summary>
     /// Parse <paramref name="packageFileName"/> and return a new instance of <see cref="NuGetVersionInfo"/>
     /// </summary>
     /// <param name="packageFileName"></param>
     /// <returns></returns>
-    public static NuGetVersionInfo Parse(string packageFileName)
+    public static NuGetVersionInfo? Parse(string packageFileName)
     {
-        string packageName;
-        string packageVersion;
-        if (NuGetExtension.TryGetPackageNameAndVersion(packageFileName, out packageName, out packageVersion))
+        if (NuGetExtension.TryGetPackageNameAndVersion(packageFileName, out string packageName, out string packageVersion))
         {
             return new NuGetVersionInfo
             {
@@ -68,8 +66,8 @@ public static class NuGetExtension
     /// <returns></returns>
     public static bool TryGetPackageNameAndVersion(string packageFileName, out string packageName, out string packageVersion)
     {
-        packageName = null;
-        packageVersion = null;
+        packageName = null!;
+        packageVersion = null!;
 
         string pattern = @"^(.*?)\.((?:\.?[0-9]+){3,}(?:[-a-z0-9]+?\.?)*)\.nupkg";
 

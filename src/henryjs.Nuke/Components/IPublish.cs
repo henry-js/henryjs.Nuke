@@ -27,17 +27,17 @@ public interface IHasPublish : IHasMainProject
 }
 public static class PublishExtensions
 {
-    public static string GetPublishedVersion(this Project project, AbsolutePath searchDirectory)
+    public static string? GetPublishedVersion(this Project project, AbsolutePath searchDirectory)
     {
-        FileVersionInfo fileVersionInfo = null;
-        Version version = new Version();
+        FileVersionInfo? fileVersionInfo = default;
+        Version version = new();
         var files = Directory.GetFiles(searchDirectory, $"{project.Name}*.dll", SearchOption.AllDirectories);
         foreach (var file in files)
         {
             try
             {
                 var fileVersionInfoTest = FileVersionInfo.GetVersionInfo(file);
-                var fileVersion = new Version(fileVersionInfoTest.FileVersion);
+                var fileVersion = new Version(fileVersionInfoTest?.FileVersion ?? "");
                 if (version < fileVersion)
                 {
                     version = fileVersion;
@@ -46,6 +46,6 @@ public static class PublishExtensions
             }
             catch { }
         }
-        return fileVersionInfo.ProductVersion;
+        return fileVersionInfo?.ProductVersion;
     }
 }

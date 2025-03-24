@@ -5,6 +5,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <MinVerDefaultPreReleaseIdentifiers>preview</MinVerDefaultPreReleaseIdentifiers>
+    <IsPackable>true</IsPackable>
+    <PackageId>henryjs.Nuke</PackageId>
+    <Authors>henry-js</Authors>
+    <Company>henry-js</Company>
+    <Product>$(PackageId)</Product>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

@@ -45,7 +45,6 @@ public interface ICompile : IClean, IHasMainProject
             {
                 DotNetBuild(_ => _
                     .EnableNoLogo()
-                    .EnableNoRestore()
                     .SetProjectFile(testProject)
                     .SetConfiguration(Configuration));
             }

@@ -7,7 +7,7 @@ public static class MinVerSettingsExtensions
 {
     public static MinVerSettings SetCustomMinVerSettings(
         this MinVerSettings minVerSettings,
-        Func<MinVerSettings, MinVerSettings> customSettings)
+        Func<MinVerSettings, MinVerSettings>? customSettings)
     {
         if (customSettings is null) return minVerSettings;
 
@@ -16,7 +16,7 @@ public static class MinVerSettingsExtensions
 
     public static DotNetTestSettings SetCustomDotNetTestSettings(
     this DotNetTestSettings dotnetTestSettings,
-    Func<DotNetTestSettings, DotNetTestSettings> customSettings)
+    Func<DotNetTestSettings, DotNetTestSettings>? customSettings)
     {
         if (customSettings is null) return dotnetTestSettings;
 

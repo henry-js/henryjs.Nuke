@@ -34,7 +34,8 @@ public static class BuildExtensions
     /// <returns></returns>
     internal static Project GetOtherProject(this Solution solution, string projectName)
         => solution.GetAllProjects("*")
-            .FirstOrDefault(p => p.Name.Equals(projectName, StringComparison.OrdinalIgnoreCase));
+            .FirstOrDefault(p => p.Name.Equals(projectName, StringComparison.OrdinalIgnoreCase))
+            ?? throw new Exception("No valid projects found");
 
     /// <summary>
     /// Gets the release configurations for the specified project.
@@ -79,15 +80,15 @@ public static class BuildExtensions
     /// <param name="project"></param>
     /// <returns></returns>
     /// <remarks>Works with .dll and .nupkg</remarks>
-    public static string GetInformationalVersion(this Project project)
+    public static string? GetInformationalVersion(this Project project)
     {
-        if (project.GetFileVersionInfo() is FileVersionInfo fileVersionInfo)
+        if (project.GetFileVersionInfo() is FileVersionInfo fileVersionInfo && fileVersionInfo is not null)
         {
-            return fileVersionInfo?.ProductVersion.Split('+').First();
+            return fileVersionInfo.ProductVersion?.Split('+').First();
         }
         if (project.GetNuGetVersionInfo() is NuGetVersionInfo nugetVersionInfo)
         {
-            return nugetVersionInfo?.ProductVersion.Split('+').First();
+            return nugetVersionInfo.ProductVersion?.Split('+').First();
         }
         return null;
     }
@@ -97,7 +98,7 @@ public static class BuildExtensions
     /// </summary>
     /// <param name="project"></param>
     /// <returns></returns>
-    public static FileVersionInfo GetFileVersionInfo(this Project project)
+    public static FileVersionInfo? GetFileVersionInfo(this Project project)
     {
         return GetFileVersionInfoGreater(project.Directory, $"*{project.Name}*.dll") ??
             GetFileVersionInfoGreater(project.Directory, $"*{project.Name}*.exe");
@@ -109,9 +110,9 @@ public static class BuildExtensions
     /// <param name="sourceDir"></param>
     /// <param name="searchPattern"></param>
     /// <returns></returns>
-    private static FileVersionInfo GetFileVersionInfoGreater(string sourceDir, string searchPattern = "*.dll")
+    private static FileVersionInfo? GetFileVersionInfoGreater(string sourceDir, string searchPattern = "*.dll")
     {
-        FileVersionInfo fileVersionInfo = null;
+        FileVersionInfo? fileVersionInfo = null;
         Version version = new Version();
         var files = Directory.GetFiles(sourceDir, searchPattern, SearchOption.AllDirectories);
         foreach (var file in files)
@@ -119,7 +120,7 @@ public static class BuildExtensions
             try
             {
                 var fileVersionInfoTest = FileVersionInfo.GetVersionInfo(file);
-                var fileVersion = new Version(fileVersionInfoTest.FileVersion);
+                var fileVersion = new Version(fileVersionInfoTest?.FileVersion ?? "");
                 if (version < fileVersion)
                 {
                     version = fileVersion;
@@ -136,7 +137,7 @@ public static class BuildExtensions
     /// </summary>
     /// <param name="project"></param>
     /// <returns></returns>
-    public static NuGetVersionInfo GetNuGetVersionInfo(this Project project)
+    public static NuGetVersionInfo? GetNuGetVersionInfo(this Project project)
     {
         var sourceDir = project.Directory;
         var searchPattern = $"*{project.Name}*.nupkg";
@@ -144,7 +145,7 @@ public static class BuildExtensions
         foreach (var nupkgFile in nupkgFiles)
         {
             var nugetVersionInfo = NuGetVersionInfo.Parse(nupkgFile);
-            if (nugetVersionInfo is NuGetVersionInfo) return nugetVersionInfo;
+            if (nugetVersionInfo is not null) return nugetVersionInfo;
         }
 
         return null;
